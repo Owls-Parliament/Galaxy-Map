@@ -1,0 +1,711 @@
+/* variables for colors */
+:root {
+    --background-color: rgb(0, 0, 0);
+}
+
+/* variables for measurements */
+:root {
+    --main-size: 99vw;
+    --spin-duration: 1440s; /* stopped: 0s -- testing: > 0s -- standard: 1440s*/ 
+    --twinkle-star-size: 0.40vw;
+    --twinkle-star-min-size: 8px;
+    --twinkle-star-max-size: 18px;
+    --twinkle-star-scale: 5;
+}
+
+/* adjusts the size of the map to still fill smaller screens */
+@media screen and (max-width: 1500px) {
+    :root {
+        --main-size: 100vw;
+    }
+}
+
+/* adjusts the height and width variable depending on the orientation of the viewport */
+
+@media all and (orientation: landscape) {
+    :root {
+        --main-size: 100vh;
+    }
+}
+
+@media all and (orientation: landscape) and (max-height: 1500px) {
+    :root {
+        --main-size: 100vh;
+    }
+}
+
+/* for personal preference, adjusts the map to be the width of the entire viewport no matter what on HD screens */
+@media all and (min-width: 1500px) {
+    :root {
+        --main-size: 99vw;
+    }
+}
+
+/* adjusts the size of the twinkle stars for smaller screens */
+@media screen and (max-width: 500px) {
+    :root {
+        --twinkle-star-size: 0.35vw;
+        --twinkle-star-min-size: 6px;
+        --twinkle-star-max-size: 12px;
+        --twinkle-star-scale: 4;
+    }
+}
+
+/* removes the padding and margin of the body so the map sits flush against the top left corner */
+#galaxy-map-body {
+    margin: 0px;
+    padding: 0px;
+    z-index: -2;
+}
+
+/* adjusts the map to be in the middle of larger screens */
+@media screen and (min-width: 1500px) {
+    #galaxy-map-body {
+        margin: auto;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* styles the main parent container of the map */
+#galaxy-map-main {
+    width: var(--main-size);
+    height: var(--main-size);
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+    background-color: var(--background-color);
+    z-index: -1;
+}
+
+/* applies a border-radius and animation to the map container */
+#galaxy-container {
+    border-radius: 50%;
+    overflow: hidden;
+    animation-name: galaxy-spin;
+    animation-duration: var(--spin-duration);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+/* map spin animation */
+@keyframes galaxy-spin {
+    0%   {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);}
+}
+
+/* ************************************************************ */
+
+/* sets position static on the #map-base-layers for the sake of all the "position: absolute" elements */
+#map-base-layers {
+    position: static;
+}
+
+/* sets the map layers to take up the entire viewport */
+.galaxy-map-layer {
+    width: var(--main-size);
+    height: var(--main-size);
+}
+
+/* sets the galaxy map layers to be absolute so they can stack */
+.galaxy-map-layer-absolute {
+    position: absolute;
+}
+
+/* places the galaxy background behind the other layers and sets the background color to black */
+#galaxy-background {
+    z-index: 0;
+    background-image: url("Star Pattern.png");
+    background-repeat: repeat;
+    background-color: var(--background-color);
+}
+
+/* applies a fade effect to the edges of the galaxy, making it blend better with the blank black background */
+#galaxy-background:after {
+    content: "";
+    display: block;
+    width: var(--main-size);
+    height: var(--main-size);
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 48%, var(--background-color) 65%, var(--background-color) 100%);
+    position: absolute;
+    top: 0; left: 0;
+}
+
+/* ************************************************************ */
+
+/* makes the galaxy map svg layers partially transparent */
+#galaxy-map-svgs {
+    opacity: 30%;
+}
+
+/* the individual z-index layers of svgs making up the galaxy map plus assorted minor styling*/
+#background-diffusion {
+    z-index: 0;
+    opacity: 0.55;
+}
+
+/* the individual z-index layers of svgs making up the galaxy map plus assorted minor styling*/
+#galaxy-diffusion {
+    z-index: 0;
+    opacity: 0.7;
+}
+
+#galaxy-map-twinkle-stars {
+    z-index: 1;
+}
+
+#galactic-bar {
+    z-index: 2;
+}
+
+#long-bar {
+    z-index: 3;
+}
+
+#arm-diffusion {
+    z-index: 7;
+}
+
+#near-3kpc-arm {
+    z-index: 8;
+}
+
+#far-3kpc-arm {
+    z-index: 6;
+}
+
+#sagittarius-arm {
+    z-index: 7;
+}
+
+#scutum-centaurus-arm {
+    z-index: 8;
+}
+
+#norma-arm {
+    z-index: 9;
+}
+
+#outer-arm {
+    z-index: 10;
+}
+
+#perseus-arm {
+    z-index: 11;
+}
+
+#orion-spur {
+    z-index: 12;
+}
+/* end of galaxy map svg layers */
+
+/* ************************************************************ */
+
+/* counter-spin animation for the various POIs and stars containers */
+@keyframes map-item-counter-spin {
+    0%   {transform: rotate(0deg);}
+    100% {transform: rotate(-360deg);}
+}
+
+/* ************************************************************ */
+
+/* hides the twinkle stars on extremely narrow screens */
+@media screen and (max-width: 300px) {
+    #galaxy-map-twinkle-stars {
+        display: none;
+    }
+}
+
+/* hides the twinkle stars on extremely short screens */
+@media screen and (max-height: 300px) {
+    #galaxy-map-twinkle-stars {
+        display: none;
+    }
+}
+
+/* styles for the twinkle star containers */
+.twinkle-star-container {
+    width: var(--twinkle-star-size);
+    height: var(--twinkle-star-size);
+    min-width: var(--twinkle-star-min-size);
+    min-height: var(--twinkle-star-min-size);
+    max-width: var(--twinkle-star-max-size);
+    max-height: var(--twinkle-star-max-size);
+    position: absolute;
+    animation-name: map-item-counter-spin;
+    animation-duration: var(--spin-duration);
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    /* for testing purposes */
+    /* background-color: blue; */
+}
+
+/* twinkle star scaling "twinkle" animation */
+@keyframes star-twinkle {
+    0%   {transform: scale(1);}
+    2.5% {transform: scale(var(--twinkle-star-scale));}
+    5% {transform: scale(1);}
+}
+
+/* styles for the twinkling stars */
+.twinkle-star {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    animation-name: star-twinkle;
+    animation-duration: 10s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+/* the individual positions for each twinkle star */
+#twinkle-star-1-container {
+    left: 45%;
+    top: 30%;
+}
+
+#twinkle-star-2-container {
+    left: 65%;
+    top: 25%;
+}
+
+#twinkle-star-3-container {
+    left: 25%;
+    top: 31%;
+}
+
+#twinkle-star-4-container {
+    left: 30%;
+    top: 75%;
+}
+
+#twinkle-star-5-container {
+    left: 85%;
+    top: 60%;
+}
+
+#twinkle-star-6-container {
+    left: 57%;
+    top: 49%;
+}
+
+#twinkle-star-7-container {
+    left: 17%;
+    top: 28%;
+}
+
+#twinkle-star-8-container {
+    left: 75%;
+    top: 21%;
+}
+
+#twinkle-star-9-container {
+    left: 53%;
+    top: 42%;
+}
+
+#twinkle-star-10-container {
+    left: 61%;
+    top: 66.5%;
+}
+
+#twinkle-star-11-container {
+    left: 62%;
+    top: 43%;
+}
+
+#twinkle-star-12-container {
+    left: 44%;
+    top: 65%;
+}
+
+#twinkle-star-13-container {
+    left: 61%;
+    top: 66.5%;
+}
+
+#twinkle-star-14-container {
+    left: 28%;
+    top: 19%;
+}
+
+#twinkle-star-15-container {
+    left: 83%;
+    top: 49%;
+}
+
+#twinkle-star-16-container {
+    left: 20%;
+    top: 72%;
+}
+
+#twinkle-star-17-container {
+    left: 68%;
+    top: 37%;
+}
+
+#twinkle-star-18-container {
+    left: 57%;
+    top: 83%;
+}
+
+#twinkle-star-19-container {
+    left: 23%;
+    top: 56%;
+}
+
+#twinkle-star-20-container {
+    left: 64%;
+    top: 57%;
+}
+
+#twinkle-star-21-container {
+    left: 58%;
+    top: 15%;
+}
+
+#twinkle-star-22-container {
+    left: 80%;
+    top: 64%;
+}
+
+#twinkle-star-23-container {
+    left: 51%;
+    top: 52%;
+}
+
+#twinkle-star-24-container {
+    left: 14%;
+    top: 44%;
+}
+
+#twinkle-star-25-container {
+    left: 55%;
+    top: 28%;
+}
+
+#twinkle-star-26-container {
+    left: 60%;
+    top: 54%;
+}
+
+#twinkle-star-27-container {
+    left: 44%;
+    top: 19.5%;
+}
+
+#twinkle-star-28-container {
+    left: 56.5%;
+    top: 59.5%;
+}
+
+#twinkle-star-29-container {
+    left: 44%;
+    top: 42.5%;
+}
+
+#twinkle-star-30-container {
+    left: 39.5%;
+    top: 57%;
+}
+
+#twinkle-star-31-container {
+    left: 32%;
+    top: 60%;
+}
+
+#twinkle-star-32-container {
+    left: 45%;
+    top: 48.5%;
+}
+
+#twinkle-star-33-container {
+    left: 27.5%;
+    top: 43.5%;
+}
+
+#twinkle-star-34-container {
+    left: 52%;
+    top: 70%;
+}
+
+#twinkle-star-35-container {
+    left: 36%;
+    top: 47%;
+}
+
+#twinkle-star-36-container {
+    left: 36%;
+    top: 34%;
+}
+/* end of twinkle star positions */
+
+/* sets the animation delay for the twinkle stars */
+#twinkle-star-1 {
+    animation-delay: 0s; /* 10s total */
+}
+
+#twinkle-star-2 {
+    animation-delay: 2s; /* +10  total */
+}
+
+#twinkle-star-3 {
+    animation-delay: 4s;
+}
+
+#twinkle-star-4 {
+    animation-delay: 6s;
+}
+
+#twinkle-star-5 {
+    animation-delay: 8s;
+}
+
+#twinkle-star-6 {
+    animation-delay: 10s;
+}
+
+#twinkle-star-7 {
+    animation-delay: 12s;
+}
+
+#twinkle-star-8 {
+    animation-delay: 14s;
+}
+
+#twinkle-star-9 {
+    animation-delay: 16s;
+}
+
+#twinkle-star-10 {
+    animation-delay: 18s;
+}
+
+#twinkle-star-11 {
+    animation-delay: 20s;
+}
+
+#twinkle-star-12 {
+    animation-delay: 22s;
+}
+
+#twinkle-star-13 {
+    animation-delay: 24s;
+}
+
+#twinkle-star-14 {
+    animation-delay: 26s;
+}
+
+#twinkle-star-15 {
+    animation-delay: 28s;
+}
+
+#twinkle-star-16 {
+    animation-delay: 30s;
+}
+
+#twinkle-star-17 {
+    animation-delay: 32s;
+}
+
+#twinkle-star-18 {
+    animation-delay: 34s;
+}
+
+#twinkle-star-19 {
+    animation-delay: 36s;
+}
+
+#twinkle-star-20 {
+    animation-delay: 38s;
+}
+
+#twinkle-star-21 {
+    animation-delay: 40s;
+}
+
+#twinkle-star-22 {
+    animation-delay: 42s;
+}
+
+#twinkle-star-23 {
+    animation-delay: 44s;
+}
+
+#twinkle-star-24 {
+    animation-delay: 46s;
+}
+
+#twinkle-star-25 {
+    animation-delay: 48s;
+}
+
+#twinkle-star-26 {
+    animation-delay: 50s;
+}
+
+#twinkle-star-27 {
+    animation-delay: 52s;
+}
+
+#twinkle-star-28 {
+    animation-delay: 54s;
+}
+
+#twinkle-star-29 {
+    animation-delay: 56s;
+}
+
+#twinkle-star-30 {
+    animation-delay: 58s;
+}
+
+#twinkle-star-31 {
+    animation-delay: 60s;
+}
+
+#twinkle-star-32 {
+    animation-delay: 62s;
+}
+
+#twinkle-star-33 {
+    animation-delay: 64s;
+}
+
+#twinkle-star-34 {
+    animation-delay: 66s;
+}
+
+#twinkle-star-35 {
+    animation-delay: 68s;
+}
+
+#twinkle-star-36 {
+    animation-delay: 70s;
+}
+/* end of twinkle star animation delays */
+
+/* ************************************************************ */
+
+/* styles of the map labels */
+.map-label {
+    position: absolute;
+    color: #e2e2e2;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.75);
+    font-family: 'Calibri', sans-serif;
+    font-weight: 500;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    z-index: 14;
+}
+
+/* styles of the larger map labels */
+.map-main-label {
+    font-size: 3.55vmin;
+}
+
+/* adjusts the font size of the larger map labels on smaller screns */
+@media screen and (max-width: 1500px) {
+    .map-main-label {
+        font-size: 1.8vmin;
+    }
+}
+
+/* styles of the smaller map labels */
+.map-secondary-label {
+    font-size: 2.9vmin;
+}
+
+/* adjusts the font size of the smaller map labels on smaller screns */
+@media screen and (max-width: 1500px) {
+    .map-secondary-label {
+        font-size: 1.4vmin;
+    }
+}
+
+/* positioning of the Sagittarius Arm label */
+#Sagittarius-Arm-label {
+    top: 41.35%;
+    left: 37.3%;
+    transform: rotate(-30deg);
+}
+
+/* positioning of the Scutum-Centaurus Arm label */
+#Scutum-Centaurus-Arm-label {
+    top: 31.5%;
+    left: 59%;
+    transform: rotate(60deg);
+}
+
+/* positioning of the Norma Arm label */
+#Norma-Arm-label {
+    top: 43.5%;
+    left: 59.25%;
+    transform: rotate(80deg);
+}
+
+/* positioning of the Perseus Arm label */
+#Perseus-Arm-label {
+    top: 64.4%;
+    left: 29.75%;
+    transform: rotate(49deg);
+}
+
+/* positioning of the Outer Arm label */
+#Outer-Arm-label {
+    top: 68.6%;
+    left: 23.4%;
+    transform: rotate(54deg);
+}
+
+/* positioning of the Long Bar label */
+#Long-Bar-label {
+    top: 54.75%;
+    left: 38.85%;
+    transform: rotate(-32deg);
+}
+
+/* positioning of the Galactic Bar label */
+#Galactic-Bar-label {
+    top: 41.75%;
+    left: 52.25%;
+    transform: rotate(-51deg);
+}
+
+/* positioning of the Far 3kpc Arm label */
+#Far-3kpc-label {
+    top: 43.75%;
+    left: 44%;
+    transform: rotate(-25deg);
+}
+
+/* positioning of the Near 3kpc Arm label */
+#Near-3kpc-label {
+    top: 53.5%;
+    left: 48.5%;
+    transform: rotate(-26deg);
+}
+
+/* positioning of the Orion Spur label */
+#Orion-Spur-label {
+    top: 66.5%;
+    left: 40.4%;
+    transform: rotate(32deg);
+}
+
+/* ************************************************************ */
+ 
+/* styles of the container for the points of interest on the map */
+#map-POIs {
+    position: absolute;
+    z-index: 15;
+    width: var(--main-size);
+    height: var(--main-size);
+    opacity: 0.1;
+    /* for testing purposes, temporary background color to make it easier to see the full galaxy circle */
+    /* background-color: red; */
+}

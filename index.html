@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--author credit-->
+        <meta name="author" content="Joseph Anway">
+
+        <!--webpage title-->
+        <title>
+            Milky Way Galaxy Map
+        </title>
+
+        <!--page description-->
+        <meta name="description" content="Galaxy Map of the Milky Way by Joseph Anway">
+
+        <!--page topic-->
+        <meta name="subject" content="Galaxy Map web page by Joseph Anway">
+
+        <!--page copyright-->
+        <meta name="copyright" content="Joseph Anway">
+
+        <!--page keywords-->
+        <meta name="keywords" content="Joseph Anway, Anway, web, galaxy, map, galaxy map, animated, interactive, development, design, personal porfolio, porfolio, HTML, CSS, JavaScript">
+
+        <!--robot meta-->
+        <meta name="robots" content="index,follow">
+
+        <!--favicon-->
+        <link rel="icon" href="favicon.png">
+
+        <!--standard styles sheet-->
+        <link rel="stylesheet" href="styles.css">
+    </head>
+
+    <!--body-->
+    <body id="galaxy-map-body">
+
+        <!--main portion of the page containing everything but the header and footer-->
+        <main id="galaxy-map-main">
+
+            <!--container to hold and spin the galaxy layers and to allow for cropping out overflow-->
+            <div id="galaxy-container">
+
+                <!--container to hold the galaxy and its many layers-->
+                <div id="galaxy-layers">
+
+                    <!--container for the points of interest on the map-->
+                    <div id="map-POIs" class="galaxy-map-main-layer galaxy-map-layer galaxy-map-layer-absolute">
+
+                    </div>
+
+                    <!--the main labels for the map, indicating regions-->
+                    <div id="map-labels" class="galaxy-map-main-layer galaxy-map-layer galaxy-map-layer-absolute">
+                        <h1 id="Sagittarius-Arm-label" class="map-label map-main-label">
+                            Sagittarius Arm
+                        </h1>
+                        <h1 id="Scutum-Centaurus-Arm-label" class="map-label map-main-label">
+                            Scutum-Centaurus Arm
+                        </h1>
+                        <h1 id="Norma-Arm-label" class="map-label map-main-label">
+                            Norma Arm
+                        </h1>
+                        <h1 id="Perseus-Arm-label" class="map-label map-main-label">
+                            Perseus Arm
+                        </h1>
+                        <h1 id="Outer-Arm-label" class="map-label map-main-label">
+                            Outer Arm
+                        </h1>
+                        <h1 id="Long-Bar-label" class="map-label map-secondary-label">
+                            Long Bar
+                        </h1>
+                        <h1 id="Galactic-Bar-label" class="map-label map-secondary-label">
+                            Galactic Bar
+                        </h1>
+                        <h1 id="Far-3kpc-label" class="map-label map-secondary-label">
+                            Far 3kpc Arm
+                        </h1>
+                        <h1 id="Near-3kpc-label" class="map-label map-secondary-label">
+                            Near 3kpc Arm
+                        </h1>
+                        <h1 id="Orion-Spur-label" class="map-label map-secondary-label">
+                            Orion Spur
+                        </h1>
+                    </div>
+
+                    <!--these are the background layers that make up the galaxy displayed by the map-->
+                    <div id="map-base-layers" class="galaxy-map-main-layer">
+
+                        <!--individual svg layers to help bring more definition to the map in specific regions-->
+                        <div id="galaxy-map-svgs">
+                            <img id="orion-spur" class="galaxy-map-layer galaxy-map-layer-absolute" src="Orion Spur.svg" alt="Orion Spur">
+                            <img id="perseus-arm" class="galaxy-map-layer galaxy-map-layer-absolute" src="Perseus Arm.svg" alt="Perseus Arm">
+                            <img id="outer-arm" class="galaxy-map-layer galaxy-map-layer-absolute" src="Outer Arm.svg" alt="Outer Arm">
+                            <img id="norma-arm" class="galaxy-map-layer galaxy-map-layer-absolute" src="Norma Arm.svg" alt="Norma Arm">
+                            <img id="scutum-centaurus-arm" class="galaxy-map-layer galaxy-map-layer-absolute" src="Scutum-Centaurus Arm.svg" alt="Scutum-Centaurus Arm">
+                            <img id="sagittarius-arm" class="galaxy-map-layer galaxy-map-layer-absolute" src="Sagittarius Arm.svg" alt="Sagittarius Arm">
+                            <img id="far-3kpc-arm" class="galaxy-map-layer galaxy-map-layer-absolute" src="Far 3kpc Arm.svg" alt="Far 3kpc Arm">
+                            <img id="near-3kpc-arm" class="galaxy-map-layer galaxy-map-layer-absolute" src="Near 3kpc Arm.svg" alt="Near 3kpc Arm">
+                            <img id="long-bar" class="galaxy-map-layer galaxy-map-layer-absolute" src="Long Bar.svg" alt="Long Bar">
+                            <img id="galactic-bar" class="galaxy-map-layer galaxy-map-layer-absolute" src="Galactic Bar.svg" alt="Galactic Bar">
+                        </div>
+
+                        <!--these are the blinking "twinkling" stars scattered throughout the map. Each is contained
+                        within the parent container and is constituted by an outer container that rotates and an
+                        inner container that scales periodically. There are 35 total-->
+                        <div id="galaxy-map-twinkle-stars" class="galaxy-map-layer galaxy-map-layer-absolute">
+                            <div id="twinkle-star-1-container" class="twinkle-star-container">
+                                <img id="twinkle-star-1" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+
+                            <div id="twinkle-star-2-container" class="twinkle-star-container">
+                                <img id="twinkle-star-2" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+
+                            <div id="twinkle-star-3-container" class="twinkle-star-container">
+                                <img id="twinkle-star-3" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+
+                            <div id="twinkle-star-4-container" class="twinkle-star-container">
+                                <img id="twinkle-star-4" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+
+                            <div id="twinkle-star-5-container" class="twinkle-star-container">
+                                <img id="twinkle-star-5" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+
+                            <div id="twinkle-star-6-container" class="twinkle-star-container">
+                                <img id="twinkle-star-6" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+
+                            <div id="twinkle-star-7-container" class="twinkle-star-container">
+                                <img id="twinkle-star-7" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-8-container" class="twinkle-star-container">
+                                <img id="twinkle-star-8" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-9-container" class="twinkle-star-container">
+                                <img id="twinkle-star-9" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-10-container" class="twinkle-star-container">
+                                <img id="twinkle-star-10" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-11-container" class="twinkle-star-container">
+                                <img id="twinkle-star-11" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-12-container" class="twinkle-star-container">
+                                <img id="twinkle-star-12" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-13-container" class="twinkle-star-container">
+                                <img id="twinkle-star-13" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-14-container" class="twinkle-star-container">
+                                <img id="twinkle-star-14" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-15-container" class="twinkle-star-container">
+                                <img id="twinkle-star-15" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-16-container" class="twinkle-star-container">
+                                <img id="twinkle-star-16" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-17-container" class="twinkle-star-container">
+                                <img id="twinkle-star-17" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-18-container" class="twinkle-star-container">
+                                <img id="twinkle-star-18" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-19-container" class="twinkle-star-container">
+                                <img id="twinkle-star-19" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-20-container" class="twinkle-star-container">
+                                <img id="twinkle-star-20" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-21-container" class="twinkle-star-container">
+                                <img id="twinkle-star-21" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-22-container" class="twinkle-star-container">
+                                <img id="twinkle-star-22" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-23-container" class="twinkle-star-container">
+                                <img id="twinkle-star-23" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-24-container" class="twinkle-star-container">
+                                <img id="twinkle-star-24" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-25-container" class="twinkle-star-container">
+                                <img id="twinkle-star-25" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-26-container" class="twinkle-star-container">
+                                <img id="twinkle-star-26" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-27-container" class="twinkle-star-container">
+                                <img id="twinkle-star-27" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-28-container" class="twinkle-star-container">
+                                <img id="twinkle-star-28" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-29-container" class="twinkle-star-container">
+                                <img id="twinkle-star-29" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-30-container" class="twinkle-star-container">
+                                <img id="twinkle-star-30" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-31-container" class="twinkle-star-container">
+                                <img id="twinkle-star-31" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-32-container" class="twinkle-star-container">
+                                <img id="twinkle-star-32" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-33-container" class="twinkle-star-container">
+                                <img id="twinkle-star-33" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-34-container" class="twinkle-star-container">
+                                <img id="twinkle-star-34" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+                            
+                            <div id="twinkle-star-35-container" class="twinkle-star-container">
+                                <img id="twinkle-star-35" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+
+                            <div id="twinkle-star-36-container" class="twinkle-star-container">
+                                <img id="twinkle-star-36" class="twinkle-star" src="star.svg" alt="twinkle star">
+                            </div>
+
+                        </div>
+
+                        <!--the only png layer of the map, brings more definition to the overall shape of the map-->
+                        <img id="galaxy" class="galaxy-map-layer galaxy-map-layer-absolute" src="Galaxy.png" alt="Galaxy">
+
+                        <!--a diffuse glow on the map to bring more attention to the center and make it appear more dense-->
+                        <img id="galaxy-diffusion" class="galaxy-map-layer galaxy-map-layer-absolute" src="Diffusion.svg" alt="light diffusion">
+                        <img id="background-diffusion" class="galaxy-map-layer galaxy-map-layer-absolute" src="Background Diffusion.svg" alt="light diffusion">
+                        
+                        <!--the background of the galaxy, including the star pattern layer-->
+                        <div id="galaxy-background" class="galaxy-map-layer"></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </main>
+
+    </body>
+
+</html>
